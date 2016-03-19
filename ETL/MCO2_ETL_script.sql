@@ -20,4 +20,25 @@ INSERT INTO calamity_type VALUES (6, "landslide");
 INSERT INTO calamity_type VALUES (7, "tsunami");
 INSERT INTO calamity_type VALUES (8, "fire");
 INSERT INTO calamity_type VALUES (9, "forest fire");
- 
+
+/*
+-- Load calamity
+INSERT INTO calamity(freq_year)
+SELECT 1 as typeID, AVG(calam1_hwmny) as freq_year FROM db_hpq.hpq_hh GROUP BY mun, zone, brgy, purok;
+INSERT INTO calamity(freq_year)
+SELECT 2 as typeID, AVG(calam2_hwmny) as freq_year FROM db_hpq.hpq_hh GROUP BY mun, zone, brgy, purok;
+INSERT INTO calamity(freq_year)
+SELECT 3 as typeID, AVG(calam3_hwmny) as freq_year FROM db_hpq.hpq_hh GROUP BY mun, zone, brgy, purok;
+INSERT INTO calamity(freq_year)
+SELECT 4 as typeID, AVG(calam4_hwmny) as freq_year FROM db_hpq.hpq_hh GROUP BY mun, zone, brgy, purok;
+INSERT INTO calamity(freq_year)
+SELECT 5 as typeID, AVG(calam5_hwmny) as freq_year FROM db_hpq.hpq_hh GROUP BY mun, zone, brgy, purok;
+INSERT INTO calamity(freq_year)
+SELECT 6 as typeID, AVG(calam6_hwmny) as freq_year FROM db_hpq.hpq_hh GROUP BY mun, zone, brgy, purok;
+INSERT INTO calamity(freq_year)
+SELECT 7 as typeID, AVG(calam7_hwmny) as freq_year FROM db_hpq.hpq_hh GROUP BY mun, zone, brgy, purok;
+INSERT INTO calamity(freq_year)
+SELECT 8 as typeID, AVG(calam8_hwmny) as freq_year FROM db_hpq.hpq_hh GROUP BY mun, zone, brgy, purok;
+INSERT INTO calamity(freq_year)
+SELECT 9 as typeID, AVG(calam9_hwmny) as freq_year FROM db_hpq.hpq_hh GROUP BY mun, zone, brgy, purok;
+*/ 
