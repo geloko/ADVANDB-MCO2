@@ -42,3 +42,18 @@ SELECT 8 as typeID, AVG(calam8_hwmny) as freq_year FROM db_hpq.hpq_hh GROUP BY m
 INSERT INTO calamity(freq_year)
 SELECT 9 as typeID, AVG(calam9_hwmny) as freq_year FROM db_hpq.hpq_hh GROUP BY mun, zone, brgy, purok;
 */ 
+
+-- load aquani type
+INSERT INTO aquani_type(type) VALUES("Tilapia");
+INSERT INTO aquani_type(type) VALUES("Milkfish");
+INSERT INTO aquani_type(type) VALUES("Catfish");
+INSERT INTO aquani_type(type) VALUES("Mudfish");
+INSERT INTO aquani_type(type) VALUES("Carp");
+INSERT INTO aquani_type(type) VALUES("Others");
+
+-- load crop type
+INSERT INTO crop_type(type) VALUES("Sugar Cane");
+INSERT INTO crop_type(type) VALUES("Palay");
+INSERT INTO crop_type(type) VALUES("Corn");
+INSERT INTO crop_type(type) VALUES("Coffee");
+INSERT INTO crop_type(type) VALUES("Other Crops");
