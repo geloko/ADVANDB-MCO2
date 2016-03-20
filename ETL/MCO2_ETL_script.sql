@@ -40,7 +40,7 @@ SELECT 7 as typeID, AVG(calam7_hwmny) as freq_year FROM db_hpq.hpq_hh GROUP BY m
 INSERT INTO calamity(freq_year)
 SELECT 8 as typeID, AVG(calam8_hwmny) as freq_year FROM db_hpq.hpq_hh GROUP BY mun, zone, brgy, purok;
 INSERT INTO calamity(freq_year)
-SELECT 9 as typeID, AVG(calam9_hwmny) as freq_year FROM db_hpq.hpq_hh GROUP BY mun, zone, brgy, purok;
+SELECT 9 as typeID, AVG(calam9_hwmny), mun, zone, brgy, purok FROM db_hpq.hpq_hh GROUP BY mun, zone, brgy, purok;
 */ 
 
 -- load aquani type
@@ -57,3 +57,27 @@ INSERT INTO crop_type(type) VALUES("Palay");
 INSERT INTO crop_type(type) VALUES("Corn");
 INSERT INTO crop_type(type) VALUES("Coffee");
 INSERT INTO crop_type(type) VALUES("Other Crops");
+
+INSERT INTO house(housetype, wall_mat, roof_mat)
+SELECT distinct (CASE WHEN house_type = 1 THEN "Single House"
+			 WHEN house_type = 2 THEN "Duplex"
+			 WHEN house_type = 3 THEN "Multi-Unit Residential"
+			 WHEN house_type = 4 THEN "Commercial/Agricultural/Industrial"
+		END) as housetype,
+		(CASE WHEN wall = 1 THEN "Strong Materials"
+			  WHEN wall = 2 THEN "Light Materials"
+			  WHEN wall = 3 THEN "Makeshift Materials"
+			  WHEN wall = 4 THEN "Predominantly Strong"
+			  WHEN wall = 5 THEN "Predominantly Light"
+			  WHEN wall = 6 THEN "Predominantly Makeshift"
+			  WHEN wall = 7 THEN "N/A"		
+		END) as wall_mat,
+		(CASE WHEN roof = 1 THEN "Strong Materials"
+			  WHEN roof = 2 THEN "Light Materials"
+			  WHEN roof = 3 THEN "Makeshift Materials"
+			  WHEN roof = 4 THEN "Predominantly Strong"
+			  WHEN roof = 5 THEN "Predominantly Light"
+			  WHEN roof = 6 THEN "Predominantly Makeshift"
+			  WHEN roof = 7 THEN "N/A"		
+		END) as roof_mat
+FROM db_hpq.hpq_hh;
