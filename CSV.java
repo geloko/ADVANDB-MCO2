@@ -20,7 +20,7 @@ public class CSV
 	
 	public void getEvents() {
 		
-		Path path = Paths.get("hpq_alp.csv");
+		Path path = Paths.get("hpq_hh.csv");
 		Charset cs = StandardCharsets.UTF_8;
 		String temp;
 		
@@ -31,11 +31,15 @@ public class CSV
 			while ((temp = reader.readLine()) != null) {
 				tempDetails = temp.split(", ");
 				
+				System.out.println(tempDetails[0]);
+				
+				/*
 				for(int i=0; i < tempDetails.length; i++)
 				{
 					System.out.print(tempDetails[i] + " ");
 					
 				}
+				*/
 				
 				System.out.println();
 			}
