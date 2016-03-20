@@ -119,67 +119,6 @@ public class ETL
         return ret;
     }
     
-    public static void insertHouse(int housetype, int wall, int roof)
-    {
-        Connection c = DBManager.getConnection("");
-        try {
-            
-        String query = "INSERT INTO house VALUE(?, ?, ?)";
-            PreparedStatement ps = c.prepareStatement(query);
-            switch(housetype)
-            {
-                case 1: ps.setString(1, "Single House");
-                        break;
-                case 2: ps.setString(1, "Duplex");
-                        break;
-                case 3: ps.setString(1, "Multi-Unit Residential");
-                        break;
-                case 4: ps.setString(1, "Commercial/Agricultural/Industrial");
-                        break;
-            }
-            switch(wall)
-            {
-                case 1: ps.setString(2, "Strong Materials");
-                        break;
-                case 2: ps.setString(2, "Light Materials");
-                        break;
-                case 3: ps.setString(2, "Makeshift Materials");
-                        break;
-                case 4: ps.setString(2, "Predominantly Strong");
-                        break;
-                case 5: ps.setString(2, "Predominantly Light");
-                        break;
-                case 6: ps.setString(2, "Predominantly Salvaged");
-                        break;
-                case 7: ps.setString(2, "N/A");
-                        break;
-            }
-            switch(roof)
-            {
-                case 1: ps.setString(3, "Strong Materials");
-                        break;
-                case 2: ps.setString(3, "Light Materials");
-                        break;
-                case 3: ps.setString(3, "Makeshift Materials");
-                        break;
-                case 4: ps.setString(3, "Predominantly Strong");
-                        break;
-                case 5: ps.setString(3, "Predominantly Light");
-                        break;
-                case 6: ps.setString(3, "Predominantly Salvaged");
-                        break;
-                case 7: ps.setString(3, "N/A");
-                        break;
-            }
-            ps.executeUpdate();
-            c.close();
-            
-	} catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("DB error");
-	}
-    }
-    
     public static void insertHousehold(int id, int location, int house)
     {
         Connection c = DBManager.getConnection("");
@@ -199,33 +138,45 @@ public class ETL
 	}
     }
     
-    public static void insertCalamity(int mun, int zone, int brgy, int purok, int locationID)
+    public static void insertCalamities()
     {
         Connection c = DBManager.getConnection("");
+        int mun,zone,brgy,purok, locationID;
         try {
-            
-            for(int i = 1; i < 11; i++)
+            String query = "SELECT * from location";
+            PreparedStatement ps = c.prepareStatement(query);
+            ResultSet locations = ps.executeQuery();
+            while(locations.next())
             {
-                String query = "SELECT AVG(calam" + i + "_hwmny) as freq_year FROM db_hpq.hpq_hh WHERE mun = ? AND zone = ? AND brgy = ? AND purok = ?";
-                PreparedStatement ps = c.prepareStatement(query);
-                ps.setInt(1, mun);
-                ps.setInt(2, zone);
-                ps.setInt(3, brgy);
-                ps.setInt(4, purok);
-                ResultSet rs = ps.executeQuery();
-                Double ave = 0.0;
-                while(rs.next())
+                
+                mun = locations.getInt("mun");
+                zone = locations.getInt("zone");
+                brgy = locations.getInt("brgy");
+                purok = locations.getInt("purok");
+                locationID = getLocationID(mun, zone, brgy, purok);
+                for(int i = 1; i < 11; i++)
                 {
-                    ave = rs.getDouble("freq_year");
+                    query = "SELECT AVG(calam" + i + "_hwmny) as freq_year FROM db_hpq.hpq_hh WHERE mun = ? AND zone = ? AND brgy = ? AND purok = ?";
+                    ps = c.prepareStatement(query);
+                    ps.setInt(1, mun);
+                    ps.setInt(2, zone);
+                    ps.setInt(3, brgy);
+                    ps.setInt(4, purok);
+                    ResultSet rs = ps.executeQuery();
+                    Double ave = 0.0;
+                    while(rs.next())
+                    {
+                        ave = rs.getDouble("freq_year");
+                    }
+
+                    query = "INSERT INTO calamity(typeID, freq_year, locationID) VALUE(?, ?, ?)";
+                    ps.setInt(1, i);
+                    ps.setDouble(2, ave);
+                    ps.setInt(3, locationID);
+                    ps = c.prepareStatement(query);
+                    ps.executeUpdate();
+
                 }
-                
-                query = "INSERT INTO calamity(typeID, freq_year, locationID) VALUE(?, ?, ?)";
-                ps.setInt(1, i);
-                ps.setDouble(2, ave);
-                ps.setInt(3, locationID);
-                ps = c.prepareStatement(query);
-                ps.executeUpdate();
-                
             }
             c.close();
             
