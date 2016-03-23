@@ -75,3 +75,49 @@ FROM db_hpq.hpq_crop c INNER JOIN household h ON( c.hpq_hh_id = h.id);
 INSERT INTO aquani(volume, line, typeID, householdID)
 SELECT distinct aquani_vol, aquani_line, IFNULL(aquanitype, 7), h.id 
 FROM db_hpq.hpq_aquani a INNER JOIN household h ON ( a.hpq_hh_id = h.id);
+
+INSERT INTO calamity(typeID, freq_year, locationID)
+SELECT 1, AVG(calam1_hwmny), l.id
+FROM db_hpq.hpq_hh h INNER JOIN location l ON (h.mun = l.mun AND h.zone = l.zone AND h.brgy = l.brgy AND h.purok = l.purok)
+GROUP BY l.id;
+
+INSERT INTO calamity(typeID, freq_year, locationID)
+SELECT 2, AVG(calam2_hwmny), l.id
+FROM db_hpq.hpq_hh h INNER JOIN location l ON (h.mun = l.mun AND h.zone = l.zone AND h.brgy = l.brgy AND h.purok = l.purok)
+GROUP BY l.id;
+
+INSERT INTO calamity(typeID, freq_year, locationID)
+SELECT 3, AVG(calam3_hwmny), l.id
+FROM db_hpq.hpq_hh h INNER JOIN location l ON (h.mun = l.mun AND h.zone = l.zone AND h.brgy = l.brgy AND h.purok = l.purok)
+GROUP BY l.id;
+
+INSERT INTO calamity(typeID, freq_year, locationID)
+SELECT 4, AVG(calam4_hwmny), l.id
+FROM db_hpq.hpq_hh h INNER JOIN location l ON (h.mun = l.mun AND h.zone = l.zone AND h.brgy = l.brgy AND h.purok = l.purok)
+GROUP BY l.id;
+
+INSERT INTO calamity(typeID, freq_year, locationID)
+SELECT 5, AVG(calam5_hwmny), l.id
+FROM db_hpq.hpq_hh h INNER JOIN location l ON (h.mun = l.mun AND h.zone = l.zone AND h.brgy = l.brgy AND h.purok = l.purok)
+GROUP BY l.id;
+
+INSERT INTO calamity(typeID, freq_year, locationID)
+SELECT 6, AVG(calam6_hwmny), l.id
+FROM db_hpq.hpq_hh h INNER JOIN location l ON (h.mun = l.mun AND h.zone = l.zone AND h.brgy = l.brgy AND h.purok = l.purok)
+GROUP BY l.id;
+
+INSERT INTO calamity(typeID, freq_year, locationID)
+SELECT 7, AVG(calam7_hwmny), l.id
+FROM db_hpq.hpq_hh h INNER JOIN location l ON (h.mun = l.mun AND h.zone = l.zone AND h.brgy = l.brgy AND h.purok = l.purok)
+GROUP BY l.id;
+
+INSERT INTO calamity(typeID, freq_year, locationID)
+SELECT 8, AVG(calam8_hwmny), l.id
+FROM db_hpq.hpq_hh h INNER JOIN location l ON (h.mun = l.mun AND h.zone = l.zone AND h.brgy = l.brgy AND h.purok = l.purok)
+GROUP BY l.id;
+
+INSERT INTO calamity(typeID, freq_year, locationID)
+SELECT 9, AVG(calam9_hwmny), l.id
+FROM db_hpq.hpq_hh h INNER JOIN location l ON (h.mun = l.mun AND h.zone = l.zone AND h.brgy = l.brgy AND h.purok = l.purok)
+GROUP BY l.id;
+
