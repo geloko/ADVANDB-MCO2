@@ -68,12 +68,12 @@ FROM db_hpq.hpq_hh H LEFT JOIN location L
 		ON H.mun = L.mun AND H.zone = L.zone AND H.brgy = L.brgy AND H.purok = L.purok
 GROUP BY H.id;
 
-INSERT INTO crop(volume, line, typeID, householdID)
-SELECT crop_vol, crop_line, IFNULL(croptype, 6), h.id 
+INSERT INTO crop(volume, line, typeID, locationID)
+SELECT crop_vol, crop_line, IFNULL(croptype, 6), h.locationID 
 FROM db_hpq.hpq_crop c INNER JOIN household h ON( c.hpq_hh_id = h.id);
 
-INSERT INTO aquani(volume, line, typeID, householdID)
-SELECT distinct aquani_vol, aquani_line, IFNULL(aquanitype, 7), h.id 
+INSERT INTO aquani(volume, line, typeID, locationID)
+SELECT distinct aquani_vol, aquani_line, IFNULL(aquanitype, 7), h.locationID 
 FROM db_hpq.hpq_aquani a INNER JOIN household h ON ( a.hpq_hh_id = h.id);
 
 INSERT INTO calamity(typeID, freq_year, locationID)
