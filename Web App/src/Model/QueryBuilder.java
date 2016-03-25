@@ -11,6 +11,7 @@ public class QueryBuilder
 	private ArrayList<String> order;
 	private ArrayList<String> groupBy;
 	private String factTable;
+	private ArrayList<String> dimensionFact;
 	
 	public QueryBuilder(String factTable)
 	{
@@ -20,11 +21,18 @@ public class QueryBuilder
 		selections = new ArrayList<String>();
 		isRange = new ArrayList<Boolean>();
 		order = new ArrayList<String>();
+		dimensionFact = new ArrayList<String>();
 	}
 	
 	public void addAggregate(String aggregate)
 	{
 		aggregates.add(aggregate);
+	}
+	
+	public void addDimensionFact(String dimensionFact)
+	{
+		//for adding dimensions of another fact table 
+		this.dimensionFact.add(dimensionFact);
 	}
 	
 	public void addDimension(String dimension)
@@ -106,6 +114,20 @@ public class QueryBuilder
 				if(i > 0)
 					groupByStr += ", ";
 				groupByStr += groupBy.get(i);
+			}
+		}
+		String fact = "";
+		for(int i = 0; i < dimensionFact.size(); i++)
+		{
+			switch(dimensionFact.get(i))
+			{
+				case "household":
+				case "crop":
+				case "aquani":
+				case "calamity": fromStr += " INNER JOIN " + dimensionFact.get(i) + " ON (" + dimensionFact.get(i) + ".locationID = f.locationID)";
+								 fact = dimensionFact.get(i);
+								 break;
+				default: fromStr += " INNER JOIN " + dimensionFact.get(i) + " ON (" + dimensionFact.get(i) + ".id = " + fact + "." + dimensionFact.get(i) + "ID)";
 			}
 		}
 		
