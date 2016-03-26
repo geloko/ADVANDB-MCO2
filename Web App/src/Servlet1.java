@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 package Servlets;
 
 import java.io.IOException;
@@ -480,4 +478,3 @@ public class Servlet1 extends HttpServlet {
 	}
 
 }
->>>>>>> parent of 9aef747... package
