@@ -14,23 +14,23 @@ INSERT INTO calamity_type VALUES (8, "fire");
 INSERT INTO calamity_type VALUES (9, "forest fire");
 
 INSERT INTO aquani_type
-SELECT distinct aquani_type, (CASE WHEN aquani_type = 1 THEN "Tilapia"
-			 WHEN aquani_type = 2 THEN "Milkfish"
-			 WHEN aquani_type = 3 THEN "Catfish"
-			 WHEN aquani_type = 4 THEN "Mudfish"
-			 WHEN aquani_type = 5 THEN "Carp"
-			 WHEN aquani_type = 6 THEN "Others"
-			 WHEN aquani_type = 7 THEN "Undefined"
+SELECT distinct IFNULL(aquanitype, 7), (CASE WHEN aquanitype = 1 THEN "Tilapia"
+			 WHEN aquanitype = 2 THEN "Milkfish"
+			 WHEN aquanitype = 3 THEN "Catfish"
+			 WHEN aquanitype = 4 THEN "Mudfish"
+			 WHEN aquanitype = 5 THEN "Carp"
+			 WHEN aquanitype = 6 THEN "Others"
+			 WHEN aquanitype IS NULL THEN "Undefined"
 		END)
 FROM db_hpq.hpq_aquani;
 
 INSERT INTO crop_type
-SELECT distinct crop_type, (CASE WHEN crop_type = 1 THEN "Sugar Cane"
-			 WHEN crop_type = 2 THEN "Palay"
-			 WHEN crop_type = 3 THEN "Corn"
-			 WHEN crop_type = 4 THEN "Coffee"
-			 WHEN crop_type = 5 THEN "Other Crops"
-			 WHEN crop_type = 6 THEN "Undefined"
+SELECT distinct IFNULL(croptype, 6), (CASE WHEN croptype = 1 THEN "Sugar Cane"
+			 WHEN croptype = 2 THEN "Palay"
+			 WHEN croptype = 3 THEN "Corn"
+			 WHEN croptype = 4 THEN "Coffee"
+			 WHEN croptype = 5 THEN "Other Crops"
+			 WHEN croptype IS NULL THEN "Undefined"
 		END)
 FROM db_hpq.hpq_crop;
 
