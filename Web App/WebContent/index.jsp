@@ -11,5 +11,6 @@
 <body>
 	<jsp:include page="header.jsp"/>
 	<jsp:include page="querySelect.jsp"/>
+	<jsp:include page="queryResults.jsp"/>
 </body>
 </html>
