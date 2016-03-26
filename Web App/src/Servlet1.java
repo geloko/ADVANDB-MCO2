@@ -2,6 +2,7 @@ package Servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Model.DBConnection;
 import Model.DBTable;
 
 /**
@@ -120,10 +122,7 @@ public class Servlet1 extends HttpServlet {
 			message += s + " ";
 			
 		}
-
-		
-		*/
-		
+	
 		for(DBTable d : dbTables)
 		{
 			message += "<br>" + d.getName();
@@ -149,8 +148,15 @@ public class Servlet1 extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		out.print("<html>" + message + "</html>");
 		
-		
+*/		
 		//response.getWriter().append(message);
+
+		
+		ResultSet rs = DBConnection.queryDB("select * from crop;");
+		
+		request.getSession().setAttribute("ResultSet", rs);
+		request.getRequestDispatcher("queryResults.jsp").forward(request, response);
+
 		
 	}
 
