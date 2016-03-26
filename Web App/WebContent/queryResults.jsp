@@ -1,3 +1,5 @@
+<%@ page import = "java.sql.ResultSet" %>
+<%@ page import = "java.sql.SQLException" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
@@ -11,15 +13,31 @@
 <link rel="stylesheet" href="<c:url value="mco2.css" />" />
 </head>
 <body>
+
+<%
+	ResultSet rs = (ResultSet)session.getAttribute("ResultSet");
+	
+if(rs != null)
+	try{
+		while(rs.next())
+		{
+			%>
+			<%= rs.getInt("id")%>
+	<% 	}
+	}catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	%>
+
+
 	<div class="container">
 		<h1>Table Name</h1>
-		<h5>Total Row Count: </h5>
-		<h5>Query Execution Time: </h5>
 		<table>
 			<tr>
-				<th>Row 1</th>
-				<th>Row 2</th>
-				<th>Row 3</th>
+				<th>column 1</th>
+				<th>column 2</th>
+				<th>column 3</th>
 			</tr>
 			<c:forEach var="item" items="itemSelected">
 				<tr>
