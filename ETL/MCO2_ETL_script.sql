@@ -13,23 +13,26 @@ INSERT INTO calamity_type VALUES (7, "tsunami");
 INSERT INTO calamity_type VALUES (8, "fire");
 INSERT INTO calamity_type VALUES (9, "forest fire");
 
--- load aquani type
-INSERT INTO aquani_type(type) VALUES("Tilapia");
-INSERT INTO aquani_type(type) VALUES("Milkfish");
-INSERT INTO aquani_type(type) VALUES("Catfish");
-INSERT INTO aquani_type(type) VALUES("Mudfish");
-INSERT INTO aquani_type(type) VALUES("Carp");
-INSERT INTO aquani_type(type) VALUES("Others");
-INSERT INTO aquani_type(type) VALUES("Undefined");
+INSERT INTO aquani_type
+SELECT distinct aquani_type, (CASE WHEN aquani_type = 1 THEN "Tilapia"
+			 WHEN aquani_type = 2 THEN "Milkfish"
+			 WHEN aquani_type = 3 THEN "Catfish"
+			 WHEN aquani_type = 4 THEN "Mudfish"
+			 WHEN aquani_type = 5 THEN "Carp"
+			 WHEN aquani_type = 6 THEN "Others"
+			 WHEN aquani_type = 7 THEN "Undefined"
+		END)
+FROM db_hpq.hpq_aquani;
 
--- load crop type
-INSERT INTO crop_type(type) VALUES("Sugar Cane");
-INSERT INTO crop_type(type) VALUES("Palay");
-INSERT INTO crop_type(type) VALUES("Corn");
-INSERT INTO crop_type(type) VALUES("Coffee");
-INSERT INTO crop_type(type) VALUES("Other Crops");
-INSERT INTO crop_type(type) VALUES("Undefined");
-
+INSERT INTO crop_type
+SELECT distinct crop_type, (CASE WHEN crop_type = 1 THEN "Sugar Cane"
+			 WHEN crop_type = 2 THEN "Palay"
+			 WHEN crop_type = 3 THEN "Corn"
+			 WHEN crop_type = 4 THEN "Coffee"
+			 WHEN crop_type = 5 THEN "Other Crops"
+			 WHEN crop_type = 6 THEN "Undefined"
+		END)
+FROM db_hpq.hpq_crop;
 
 INSERT INTO housetype
 SELECT distinct house_type, (CASE WHEN house_type = 1 THEN "Single House"
