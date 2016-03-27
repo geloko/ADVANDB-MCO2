@@ -1,6 +1,7 @@
 package Servlets;
 
 import java.io.IOException;
+
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import Model.DBConnection;
 import Model.DBTable;
+import Model.QueryBuilder;
 
 /**
  * Servlet implementation class Servlet1
@@ -48,15 +50,6 @@ public class Servlet1 extends HttpServlet {
 		//doGet(request, response);
 		
 		String message = "DoPost\n" + "Served at: " + request.getContextPath();
-		/*
-		String[] strings = request.getParameterValues("wall");
-		
-		if(strings != null)
-		{
-			for(int a=0; a < strings.length; a++)
-			message += "\n" + strings[a];
-		}
-		*/
 		
 		ArrayList<DBTable> dbTables = new ArrayList();
 		ArrayList<String> paramValues = new ArrayList();
@@ -113,48 +106,157 @@ public class Servlet1 extends HttpServlet {
 		DBTable wall = dbTables.get(10);
 		wall.setName("wall");
 		
-	/*	
-		message += wall.getColumns().size();
+		String factTable = null;
+		ArrayList<String> dimensions = new ArrayList();
+		ArrayList<String> aggregates = new ArrayList();
 		
-		for(int a=0; a<wall.getColumns().size(); a++)
+		if(household.getColumns().size() != 0)
 		{
-			String s = wall.getColumns().get(a);
-			message += s + " ";
-			
-		}
-	
-		for(DBTable d : dbTables)
-		{
-			message += "<br>" + d.getName();
-			
-			if(d.getColumns().size()!=0)
+			factTable = "household";
+			//check for dimensions table
+			if(roof.getColumns().size() != 0)
 			{
-				ArrayList<String> strings = d.getColumns();
+				dimensions.add("roof");
 				
-				for(String s: strings)
+				for(int a =0; a < roof.getColumns().size(); a++)
 				{
-					message += "<br>" + s;
+					aggregates.add("roof." + roof.getColumns().get(a));
 				}
 			}
-			else
+			
+			if(wall.getColumns().size() != 0)
 			{
-				message += "<br>" + "none";
+				dimensions.add("wall");				
+			
+				for(int a =0; a < wall.getColumns().size(); a++)
+				{
+					aggregates.add("wall." + wall.getColumns().get(a));
+				}
+			}
+			
+			if(location.getColumns().size() != 0)
+			{
+				dimensions.add("location");
+				
+				for(int a =0; a < location.getColumns().size(); a++)
+				{
+					aggregates.add("location." + location.getColumns().get(a));
+				}
+			}
+			
+			if(housetype.getColumns().size() != 0)
+			{
+				dimensions.add("housetype");
+			
+				for(int a =0; a < housetype.getColumns().size(); a++)
+				{
+					aggregates.add("housetype." + housetype.getColumns().get(a));
+				}
 			}
 			
 		}
-		
-		
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		out.print("<html>" + message + "</html>");
-		
-*/		
-		//response.getWriter().append(message);
+		else if(calamity.getColumns().size() != 0)
+		{
+			factTable = "calamity";
+			
+			//check for dimensions table
+			if(location.getColumns().size() != 0)
+			{
+				dimensions.add("location");
+			
+				for(int a =0; a < location.getColumns().size(); a++)
+				{
+					aggregates.add("location." + location.getColumns().get(a));
+				}
+			}
+			
+			if(calamity_type.getColumns().size() != 0)
+			{
+				dimensions.add("calamity_type");
+				
+				for(int a =0; a < calamity_type.getColumns().size(); a++)
+				{
+					aggregates.add("calamity_type." + calamity_type.getColumns().get(a));
+				}
+			}
 
+		}
+		else if(crop.getColumns().size() != 0)
+		{
+			factTable = "crop";
+			//check for dimensions table
+			if(location.getColumns().size() != 0)
+			{
+				dimensions.add("location");
+				
+				for(int a =0; a < location.getColumns().size(); a++)
+				{
+					aggregates.add("crop." + location.getColumns().get(a));
+				}
+			}
+			
+			if(crop_type.getColumns().size() != 0)
+			{
+				dimensions.add("crop_type");
+				
+				for(int a =0; a < crop_type.getColumns().size(); a++)
+				{
+					aggregates.add("crop_type." + crop_type.getColumns().get(a));
+				}
+			}
+			
+			
+		}
+		else if(aquani.getColumns().size() != 0)
+		{
+			factTable = "aquani";
+			
+			if(location.getColumns().size() != 0)
+			{
+				dimensions.add("location");
+			
+				for(int a =0; a < location.getColumns().size(); a++)
+				{
+					aggregates.add("aquani." + location.getColumns().get(a));
+				}
+			}
+			
+			if(aquani_type.getColumns().size() != 0)
+			{
+				dimensions.add("aquani_type");
+				
+				for(int a =0; a < aquani_type.getColumns().size(); a++)
+				{
+					aggregates.add("aquani_type." + aquani_type.getColumns().get(a));
+				}
+			}
+			
+		}
+			
+		if(factTable != null && aggregates.size() != 0 && dimensions.size() != 0)
+		{
+			QueryBuilder q = new QueryBuilder(factTable);
+				
+			for (String s: aggregates)
+			{
+				q.addAggregate(s);
+			}
+			
+			for(String s: dimensions)
+			{
+				q.addDimension(s);
+			}
+			
+			String s = q.buildQuery();
+			request.getSession().setAttribute("query", s);
+				
+			ResultSet rs = DBConnection.queryDB(s);
+	
+			request.getSession().setAttribute("ResultSet", rs);
+			request.getSession().setAttribute("aggregates", aggregates);
+		}
 		
-		ResultSet rs = DBConnection.queryDB("select * from crop;");
-		
-		request.getSession().setAttribute("ResultSet", rs);
+
 		request.getRequestDispatcher("queryResults.jsp").forward(request, response);
 
 		
