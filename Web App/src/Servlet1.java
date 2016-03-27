@@ -217,7 +217,7 @@ public class Servlet1 extends HttpServlet {
 			
 				for(int a =0; a < location.getColumns().size(); a++)
 				{
-					aggregates.add("aquani." + location.getColumns().get(a));
+					aggregates.add("location." + location.getColumns().get(a));
 				}
 			}
 			
