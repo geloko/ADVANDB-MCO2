@@ -22,6 +22,8 @@ public class QueryBuilder
 		isRange = new ArrayList<Boolean>();
 		order = new ArrayList<String>();
 		dimensionFact = new ArrayList<String>();
+		groupBy = new ArrayList<String>();
+		
 	}
 	
 	public void addAggregate(String aggregate)
@@ -59,7 +61,7 @@ public class QueryBuilder
 	public String buildQuery()
 	{
 		String selectStr = "SELECT ";
-		String fromStr = "FROM " + factTable + "f";
+		String fromStr = "FROM " + factTable + " f";
 		String whereStr = "";
 		String groupByStr = "";
 		String orderByStr = "";
