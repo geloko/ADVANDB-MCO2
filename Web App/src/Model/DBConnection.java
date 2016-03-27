@@ -11,7 +11,7 @@ public class DBConnection
 	public static Connection connection;
 	  public static String url = "jdbc:mysql://localhost:3306/db_mco2";
 	  public static String username = "root";
-	  public static String password = "12345";
+	  public static String password = "";
 	  
 	  
 	  public static Connection getConnection(){
@@ -37,6 +37,7 @@ public class DBConnection
 			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				System.out.println("Query: " + query);
 			}
 		  return rs;
 	  }

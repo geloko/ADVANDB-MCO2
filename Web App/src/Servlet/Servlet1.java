@@ -1,4 +1,4 @@
-package Servlets;
+package Servlet;
 
 import java.io.IOException;
 
@@ -19,9 +19,14 @@ import Model.QueryBuilder;
 /**
  * Servlet implementation class Servlet1
  */
-@WebServlet("/Servlet1")
+@WebServlet(urlPatterns={"/SelectCols", "/SelectOperation"})
 public class Servlet1 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+    private HttpServletRequest request;
+    private HttpServletResponse response;
+    ArrayList<String> dimensions;
+	ArrayList<String> aggregates;
+	String factTable;
 
     /**
      * Default constructor. 
@@ -35,7 +40,8 @@ public class Servlet1 extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		this.request = request;
+		this.response = response;
 		
 		String message = "DoGet\n" + "Served at: " + request.getContextPath();
 		
@@ -50,7 +56,24 @@ public class Servlet1 extends HttpServlet {
 		//doGet(request, response);
 		
 		String message = "DoPost\n" + "Served at: " + request.getContextPath();
+		this.request = request;
+		this.response = response;
 		
+		switch(request.getServletPath())
+		{
+			case "/SelectCols": processColumns();
+								break;
+			case "/SelectOperation": processOperation();
+									 break;
+								
+		}
+		//String cropid = (String)request.getParameter("cropid");
+		//System.out.println("Crop ID: " + cropid);
+		
+	}
+	
+	private void processColumns() throws ServletException, IOException
+	{
 		ArrayList<DBTable> dbTables = new ArrayList();
 		ArrayList<String> paramValues = new ArrayList();
 		paramValues.add("crop_type");
@@ -74,8 +97,9 @@ public class Servlet1 extends HttpServlet {
 			for(int b=0; b < strings.length; b++)
 			{
 				String s = strings[b];
+				System.out.println(s);
 				
-				if(s != null)
+				if(s != null && s.length() > 0)
 				{
 					table.addColumn(s);
 				}
@@ -106,14 +130,20 @@ public class Servlet1 extends HttpServlet {
 		DBTable wall = dbTables.get(10);
 		wall.setName("wall");
 		
-		String factTable = null;
-		ArrayList<String> dimensions = new ArrayList();
-		ArrayList<String> aggregates = new ArrayList();
+		factTable = null;
+		aggregates = new ArrayList<String>();
+		dimensions = new ArrayList<String>();
 		
 		if(household.getColumns().size() != 0)
 		{
 			factTable = "household";
 			//check for dimensions table
+			
+			for(int a =0; a < household.getColumns().size(); a++)
+			{
+				aggregates.add("f." + household.getColumns().get(a));
+			}
+			
 			if(roof.getColumns().size() != 0)
 			{
 				dimensions.add("roof");
@@ -159,6 +189,11 @@ public class Servlet1 extends HttpServlet {
 		{
 			factTable = "calamity";
 			
+			for(int a =0; a < calamity.getColumns().size(); a++)
+			{
+				aggregates.add("f." + calamity.getColumns().get(a));
+			}
+			
 			//check for dimensions table
 			if(location.getColumns().size() != 0)
 			{
@@ -184,6 +219,12 @@ public class Servlet1 extends HttpServlet {
 		else if(crop.getColumns().size() != 0)
 		{
 			factTable = "crop";
+			
+			for(int a =0; a < crop.getColumns().size(); a++)
+			{
+				aggregates.add(crop.getColumns().get(a));
+			}
+			
 			//check for dimensions table
 			if(location.getColumns().size() != 0)
 			{
@@ -191,7 +232,7 @@ public class Servlet1 extends HttpServlet {
 				
 				for(int a =0; a < location.getColumns().size(); a++)
 				{
-					aggregates.add("crop." + location.getColumns().get(a));
+					aggregates.add("location." + location.getColumns().get(a));
 				}
 			}
 			
@@ -211,6 +252,11 @@ public class Servlet1 extends HttpServlet {
 		{
 			factTable = "aquani";
 			
+			for(int a =0; a < aquani.getColumns().size(); a++)
+			{
+				aggregates.add("f." + aquani.getColumns().get(a));
+			}
+			
 			if(location.getColumns().size() != 0)
 			{
 				dimensions.add("location");
@@ -225,21 +271,88 @@ public class Servlet1 extends HttpServlet {
 			{
 				dimensions.add("aquani_type");
 				
-				for(int a =0; a < aquani_type.getColumns().size(); a++)
+				for(int a = 0; a < aquani_type.getColumns().size(); a++)
 				{
 					aggregates.add("aquani_type." + aquani_type.getColumns().get(a));
 				}
 			}
 			
 		}
+		
+		//for aggregate functions
+				String[] checkboxValues = request.getParameterValues("aggregates");
+				System.out.println("Checkboxes: ");
+				if(checkboxValues != null)
+				{
+					for(int i = 0; i < checkboxValues.length; i++)
+					{
+						System.out.println(request.getParameter(checkboxValues[i]));
+						aggregates.add(request.getParameter(checkboxValues[i]));
+						String[] temp = checkboxValues[i].split("_");
+						factTable = temp[0];
+						
+					}
+				}
+		
+		if(factTable != null && aggregates.size() != 0)
+		{
+			System.out.println("Querying");
+			QueryBuilder q = new QueryBuilder(factTable);
+				
+			for (String s: aggregates)
+			{
+				q.addAggregate(s);
+			}
 			
-		if(factTable != null && aggregates.size() != 0 && dimensions.size() != 0)
+			for (String s: aggregates)
+			{
+				q.addGroupBy(s);
+			}
+			
+			for(String s: dimensions)
+			{
+				q.addDimension(s);
+			}
+			
+			String s = q.buildQuery();
+			request.getSession().setAttribute("query", s);
+				
+			ResultSet rs = DBConnection.queryDB(s);
+	
+			request.getSession().setAttribute("ResultSet", rs);
+			request.getSession().setAttribute("aggregates", aggregates);
+		}
+		
+		request.getSession().setAttribute("aggregates", aggregates);
+		request.getSession().setAttribute("dimensions", dimensions);
+		request.getSession().setAttribute("factTable", factTable);
+		request.getRequestDispatcher("ChooseOperation.jsp").forward(request, response);
+		
+		
+	}
+
+		
+	
+	private void processOperation() throws ServletException, IOException
+	{
+		
+		
+		//for the aggregate functions
+		
+		
+			
+		if(factTable != null && aggregates.size() != 0)
 		{
 			QueryBuilder q = new QueryBuilder(factTable);
 				
 			for (String s: aggregates)
 			{
 				q.addAggregate(s);
+			}
+			
+			for (String s: aggregates)
+			{
+				q.addGroupBy(s);
 			}
 			
 			for(String s: dimensions)
@@ -257,9 +370,7 @@ public class Servlet1 extends HttpServlet {
 		}
 		
 
-		request.getRequestDispatcher("queryResults.jsp").forward(request, response);
-
-		
+		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 
 }

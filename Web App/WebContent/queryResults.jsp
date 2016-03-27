@@ -13,11 +13,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Results</title>
+<title>Query Results</title>
 <link rel="stylesheet" href="<c:url value="mco2.css" />" />
 </head>
 <body>
-<h1><%= session.getAttribute("query") %></h1>
+<h5><%= session.getAttribute("query") %></h1>
 
 <%
 	ArrayList<String> aggregates = (ArrayList<String>) session.getAttribute("aggregates");
@@ -64,6 +64,14 @@
 						</td>
 				<%
 						 }
+						 else if(type == Types.BIGINT)
+						 {
+				%>
+						<td>
+							<%= rs.getLong(a+1)%>
+						</td>
+				<%
+						 }
 						 else
 						 {
 				%>
@@ -93,8 +101,6 @@
 <% 	
 	}
 %>
-	
-
 
 </body>
 </html>
