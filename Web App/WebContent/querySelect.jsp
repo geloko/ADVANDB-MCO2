@@ -8,7 +8,7 @@
 	  	
 	  	<h3>crop type</h3>
 			<input type="checkbox" name="crop_type" value="id">id<br>
-	  		<input type="checkbox" name="crop_type" value="type">type<br>
+	  		<input type="checkbox" name="crop_type" value="crop_type">type<br>
 	  	
 	  	<h3>crop</h3>
 			<input type="checkbox" name="crop" value="id">id<br>
@@ -23,11 +23,10 @@
 	  		<input type="checkbox" name="aquani" value="volume">volume<br>
 	  		<input type="checkbox" name="aquani" value="typeID">typeID<br>
 	  		<input type="checkbox" name="aquani" value="locationID">locationID<br>
-	  			  	
 	  
 	  	<h3>roof</h3>
 			<input type="checkbox" name="roof" value="id">id<br>
-	  		<input type="checkbox" name="roof" value="type">type<br>
+	  		<input type="checkbox" name="roof" value="roof_mat">roof_mat<br>
 	  		
 	  	<h3>location</h3>
 			<input type="checkbox" name="location" value="id">id<br>
@@ -49,7 +48,7 @@
 	  	
 	  	<h3>aquani_type</h3>
 			<input type="checkbox" name="aquani_type" value="id">id<br>
-	  		<input type="checkbox" name="aquani_type" value="type">type<br>
+	  		<input type="checkbox" name="aquani_type" value="aquani_type">aquani_type<br>
 	  	
 	  	<h3>calamity</h3>
 			<input type="checkbox" name="calamity" value="id">id<br>
@@ -59,7 +58,7 @@
 	  	
 	  	<h3>calamity_type</h3>
 			<input type="checkbox" name="calamity_type" value="id">id<br>
-	  		<input type="checkbox" name="calamity_type" value="type">type<br>
+	  		<input type="checkbox" name="calamity_type" value="calamity_type">calamity_type<br>
 	  		
 	  	<h3>wall</h3>
 			<input type="checkbox" name="wall" value="id">id<br>
