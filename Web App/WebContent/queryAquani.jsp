@@ -12,13 +12,14 @@
 	<form action="SelectCols" method="post">
 	  
 			<h2>Aquani</h2>
-			<input type="checkbox" name="aquani" value="COUNT(*)" checked>Count
+			<h2>Roll-Up/Drill Down</h2>
+			<input type="checkbox" name="aggregates" value="aquani_id" checked>Count
 			<select name = "aquani_id">
 				<option value = "">No Aggregate Function</option>
 				<option value = "COUNT(f.id)">Count</option>
 			</select>
 	  		<br>
-	  		<input type="checkbox" name="aggregates" value="aquani_line">line
+	  		<input type="checkbox" name="aggregates" value="aquani_line">line 
 			<select name = "aquani_line">
 				<option value = "f.line">No Aggregate Function</option>
 				<option value = "AVG(f.line)">Average</option>
@@ -45,8 +46,22 @@
 	  		<input type="checkbox" name="location" value="zone">zone<br>
 	  		<input type="checkbox" name="location" value="brgy">brgy<br>
 	  		<input type="checkbox" name="location" value="purok">purok<br>
+	  		
+	  	<h2>Slice and Dice</h2>
+				Aquatic Animal Type:
+									<select name = "slicedice">
+										<option value="" disabled selected>Select your option</option>
+										<option value = "aquani_type.aquani_type.Tilapia">Tilapia</option>
+										<option value = "aquani_type.aquani_type.Milkfish">Milkfish</option>
+										<option value = "aquani_type.aquani_type.Catfish">Catfish</option>
+										<option value = "aquani_type.aquani_type.Mudfish">Mudfish</option>
+										<option value = "aquani_type.aquani_type.Carp">Carp</option>
+										<option value = "aquani_type.aquani_type.Others">Others</option>
+										<option value = "aquani_type.aquani_type.Undefined">Undefined</option>
+									</select>
+		<br>
 	  	
-	  	
+	  	<a href="index.jsp" class = "button">Back</a>
 	  	<input type="submit" value="Continue">
 	  
 	 </div>

@@ -66,8 +66,6 @@ public class Servlet1 extends HttpServlet {
 		{
 			case "/SelectCols": processColumns();
 								break;
-			case "/SelectOperation": processOperation();
-									 break;
 			default: request.getRequestDispatcher("index.jsp").forward(request, response);
 								break;
 								
@@ -281,10 +279,31 @@ public class Servlet1 extends HttpServlet {
 						
 					}
 				}
+				
+				
 		
 		if(factTable != null && aggregates.size() != 0)
 		{
 			QueryBuilder q = new QueryBuilder(factTable);
+			
+			String[] slicendice = request.getParameterValues("slicedice");
+			String[] temp;
+			
+			if(slicendice != null)
+			{
+				for(int i = 0; i < slicendice.length; i++)
+				{
+					temp = slicendice[i].split("\\.");
+					if(temp.length > 1)
+					{
+						q.addSelection(temp[0]+ "." + temp[1], false);
+					}
+					if(!dimensions.contains(temp[0]))
+					{
+						q.addDimension(temp[0]);
+					}
+				}
+			}
 				
 			for (String s: aggregates)
 			{
@@ -305,18 +324,46 @@ public class Servlet1 extends HttpServlet {
 			System.out.println("Query: " + s);
 			request.getSession().setAttribute("query", s);
 			
-			ResultSet rs = DBConnection.queryDB(s);
-			
+			Connection c = DBConnection.getConnection();
+			PreparedStatement ps;
+			try {
+				ps = c.prepareStatement(s);
+			if(slicendice != null)
+			{
+				for(int i = 0; i < slicendice.length; i++)
+				{
+					temp = slicendice[i].split("\\.");
+					if(temp.length == 3)
+						ps.setString(i+1, temp[2]);
+				}
+			}
+			ResultSet rs;
+
+			rs = ps.executeQuery();
 			request.getSession().setAttribute("ResultSet", rs);
 			request.getSession().setAttribute("aggregates", aggregates);
-	
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 		}
 		
 		request.getSession().setAttribute("aggregates", aggregates);
 		request.getSession().setAttribute("dimensions", dimensions);
 		request.getSession().setAttribute("factTable", factTable);
-		request.getRequestDispatcher("ChooseOperation.jsp").forward(request, response);
+		switch(factTable)
+		{
+			case "crop": 	request.getRequestDispatcher("queryCrop.jsp").forward(request, response);
+							break;
+			case "aquani": 	request.getRequestDispatcher("queryAquani.jsp").forward(request, response);
+							break;
+			case "household": 	request.getRequestDispatcher("queryHousehold.jsp").forward(request, response);
+							break;
+			case "calamity": 	request.getRequestDispatcher("queryCalamity.jsp").forward(request, response);
+							break;
+		}
+		
 		
 		
 	}

@@ -12,6 +12,7 @@
 	<form action="SelectCols" method="post">
 	  
 	  	<h2>Calamity</h2>
+	  	<h2>Roll-Up/Drill Down</h2>
 			<input type="checkbox" name="aggregates" value="calamity_id" checked>Count
 			<select name = "calamity_id">
 				<option value = "">No Aggregate Function</option>
@@ -36,8 +37,24 @@
 	  		<input type="checkbox" name="location" value="zone">zone<br>
 	  		<input type="checkbox" name="location" value="brgy">brgy<br>
 	  		<input type="checkbox" name="location" value="purok">purok<br>
+	  		
+	  	<h2>Slice and Dice</h2>
+				Calamity Type:
+									<select name = "slicedice">
+										<option value="" disabled selected>Select your option</option>
+										<option value = "calamity_type.calamity_type.typhoon">Typhoon</option>
+										<option value = "calamity_type.calamity_type.flood">Flood</option>
+										<option value = "calamity_type.calamity_type.drought">Drought</option>
+										<option value = "calamity_type.calamity_type.earthquake">Earthquake</option>
+										<option value = "calamity_type.calamity_type.volcanic eruption">Volcanic Eruption</option>
+										<option value = "calamity_type.calamity_type.landslide">Landslide</option>
+										<option value = "calamity_type.calamity_type.tsunami">Tsunami</option>
+										<option value = "calamity_type.calamity_type.fire">Fire</option>
+										<option value = "calamity_type.calamity_type.forest fire">Forest Fire</option>
+									</select>
+		<br>
 	  			  	
-	  	
+	  	<a href="index.jsp" class = "button">Back</a>
 	  	<input type="submit" value="Continue">
 	  
 	 </div>

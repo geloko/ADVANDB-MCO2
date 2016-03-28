@@ -16,6 +16,7 @@
 			
 	  	
 	  	<h2>Household</h2>
+	  	<h2>Roll-Up/Drill Down</h2>
 			<input type="checkbox" name="aggregates" value="household_id" checked>Count
 			<select name = "household_id">
 				<option value = "">No Aggregate Function</option>
@@ -37,8 +38,44 @@
 	  		<input type="checkbox" name="location" value="zone">zone<br>
 	  		<input type="checkbox" name="location" value="brgy">brgy<br>
 	  		<input type="checkbox" name="location" value="purok">purok<br>
+	  		
+	  	<h2>Slice and Dice</h2>
+			Wall Material:
+									<select name = "slicedice">
+										<option value="" disabled selected>Select your option</option>
+										<option value = "wall.wall_mat.Strong Materials">Strong Materials</option>
+										<option value = "wall.wall_mat.Light Materials">Light Materials</option>
+										<option value = "wall.wall_mat.Makeshift Materials">Makeshift Materials</option>
+										<option value = "wall.wall_mat.Predominantly Strong">Predominantly Strong</option>
+										<option value = "wall.wall_mat.Predominantly Light">Predominantly Light</option>
+										<option value = "wall.wall_mat.Predominantly Makeshift">Predominantly Makeshift</option>
+										<option value = "wall.wall_mat.N/A">N/A</option>
+									</select>
+									<br>
+									Roof Material:
+									<select name = "slicedice">
+										<option value="" disabled selected>Select your option</option>
+										<option value = "roof.roof_mat.Strong Materials">Strong Materials</option>
+										<option value = "roof.roof_mat.Light Materials">Light Materials</option>
+										<option value = "roof.roof_mat.Makeshift Materials">Makeshift Materials</option>
+										<option value = "roof.roof_mat.Predominantly Strong">Predominantly Strong</option>
+										<option value = "roof.roof_mat.Predominantly Light">Predominantly Light</option>
+										<option value = "roof.roof_mat.Predominantly Makeshift">Predominantly Makeshift</option>
+										<option value = "roof.roof_mat.N/A">N/A</option>
+									</select>
+									<br>
+									House Type:
+									<select name = "slicedice">
+										<option value="" disabled selected>Select your option</option>
+										<option value = "housetype.housetype.Single House">Single House</option>
+										<option value = "housetype.housetype.Duplex">Duplex</option>
+										<option value = "housetype.housetype.Multi-Unit Residential">Multi-Unit Residential</option>
+										<option value = "housetype.housetype.Commercial/Agricultural/Industrial">Commercial/Agricultural/Industrial</option>
+										<option value = "housetype.housetype.Others">Others</option>
+									</select>
+		<br>
 	  	
-	  	
+	  	<a href="index.jsp" class = "button">Back</a>
 	  	<input type="submit" value="Continue">
 	  
 	 </div>

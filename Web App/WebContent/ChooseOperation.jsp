@@ -15,13 +15,7 @@
 	<form action = "SelectOperation" method = "POST">
 	
 	<h2>Roll-Up/Drill Down</h2>
-	<%
-		ArrayList<String> aggregates = (ArrayList<String>)session.getAttribute("aggregates");
-		for(int i = 0; i < aggregates.size(); i++)
-		{
-	%>
-	<input type="checkbox" name="checkedBoxes" value= <%= aggregates.get(i)%> checked><%=aggregates.get(i)%><br>
-	<% } %>
+	
 	<h2>Slice and Dice</h2>
 	<%
 			switch((String)session.getAttribute("factTable"))

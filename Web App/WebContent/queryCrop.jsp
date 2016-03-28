@@ -12,6 +12,7 @@
 	<form action="SelectCols" method="post">
 	  
 	  	<h2>Crop</h2>
+	  	<h2>Roll-Up/Drill Down</h2>
 			<input type="checkbox" name = "aggregates" value = "crop_id" checked>Count
 			<select name = "crop_id">
 				<option value = "">No Aggregate Function</option>
@@ -44,7 +45,20 @@
 	  		<input type="checkbox" name="location" value="zone">zone<br>
 	  		<input type="checkbox" name="location" value="brgy">brgy<br>
 	  		<input type="checkbox" name="location" value="purok">purok<br>
-	  	
+	  		
+	  	<h2>Slice and Dice</h2>
+		Crop Type:
+									<select name = "slicedice">
+										<option value="" disabled selected>Select your option</option>
+										<option value = "crop_type.crop_type.Sugar Cane">Sugar Cane</option>
+										<option value = "crop_type.crop_type.Palay">Palay/Rice</option>
+										<option value = "crop_type.crop_type.Corn">Corn</option>
+										<option value = "crop_type.crop_type.Coffee">Coffee</option>
+										<option value = "crop_type.crop_type.Other Crops">Other Crops</option>
+										<option value = "crop_type.crop_type.Undefined">Undefined</option>
+									</select>
+		<br>
+	  	<a href="index.jsp" class = "button">Back</a>
 	  	<input type="submit" value="Continue">
 	  
 	 </div>
