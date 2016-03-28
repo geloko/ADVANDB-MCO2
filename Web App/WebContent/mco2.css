@@ -1,11 +1,11 @@
 body {
-	background-color:#0000cc;
+	background-color:#7fff7f;
 	font-family:"Segoe UI",Calibri, Arial, "Century Gothic";
 }
 
 header {
      width:900px;
-     background-color:#3366ff;
+     background-color:#e5ffe5;
      margin:10px auto;
      padding:20px;
 }
@@ -18,7 +18,7 @@ header h1 {
 
 .container {
 	width:860px;
-	background-color:#3366ff;
+	background-color:#e5ffe5;
 	margin:0 auto 10px;
     padding:20px 40px;
 }

@@ -37,15 +37,10 @@
 				<option value = "COUNT(f.line)">Count</option>
 			</select>
 	  		<br>
-	  		<input type="checkbox" name="crop" value="f.typeID">typeID<br>
-	  		<input type="checkbox" name="crop" value="f.locationID">locationID<br>
-	  		
 	  	<h3>crop type</h3>
-			<input type="checkbox" name="crop_type" value="id">id<br>
 	  		<input type="checkbox" name="crop_type" value="crop_type">type<br>
 	  	
 	  	<h3>location</h3>
-			<input type="checkbox" name="location" value="id">id<br>
 	  		<input type="checkbox" name="location" value="mun">mun<br>
 	  		<input type="checkbox" name="location" value="zone">zone<br>
 	  		<input type="checkbox" name="location" value="brgy">brgy<br>
@@ -82,15 +77,11 @@
 				<option value = "COUNT(f.volume)">Count</option>
 			</select>
 	  		<br>
-	  		<input type="checkbox" name="aquani" value="f.typeID">typeID<br>
-	  		<input type="checkbox" name="aquani" value="f.locationID">locationID<br>
 	  
 	  	<h3>aquani_type</h3>
-			<input type="checkbox" name="aquani_type" value="id">id<br>
 	  		<input type="checkbox" name="aquani_type" value="aquani_type">aquani_type<br>
 	  	
 	  	<h3>location</h3>
-			<input type="checkbox" name="location" value="id">id<br>
 	  		<input type="checkbox" name="location" value="mun">mun<br>
 	  		<input type="checkbox" name="location" value="zone">zone<br>
 	  		<input type="checkbox" name="location" value="brgy">brgy<br>
@@ -107,8 +98,6 @@
 				<option value = "COUNT(f.id)">Count</option>
 			</select>
 	  		<br>
-	  		<input type="checkbox" name="calamity" value="typeID">typeID
-	  		<br>
 	  		<input type="checkbox" name="aggregates" value="calamity_freq_year">freq_year
 			<select name = "calamity_freq_year">
 				<option value = "f.freq_year">No Aggregate Function</option>
@@ -119,14 +108,11 @@
 				<option value = "COUNT(f.freq_year)">Count</option>
 			</select>
 	  		<br>
-	  		<input type="checkbox" name="calamity" value="f.locationID">locationID<br>
 	  	
 	  	<h3>calamity_type</h3>
-			<input type="checkbox" name="calamity_type" value="id">id<br>
 	  		<input type="checkbox" name="calamity_type" value="calamity_type">calamity_type<br>
 
 	  	<h3>location</h3>
-			<input type="checkbox" name="location" value="id">id<br>
 	  		<input type="checkbox" name="location" value="mun">mun<br>
 	  		<input type="checkbox" name="location" value="zone">zone<br>
 	  		<input type="checkbox" name="location" value="brgy">brgy<br>
@@ -143,25 +129,17 @@
 				<option value = "COUNT(f.id)">Count</option>
 			</select>
 	  		<br>
-	  		<input type="checkbox" name="household" value="f.locationID">locationID<br>
-	  		<input type="checkbox" name="household" value="f.housetypeID">housetypeID<br>
-	  		<input type="checkbox" name="household" value="f.wallID">wallID<br>
-	  		<input type="checkbox" name="household" value="f.roofID">roofID<br>
 	  	
 	  	<h3>roof</h3>
-			<input type="checkbox" name="roof" value="id">id<br>
 	  		<input type="checkbox" name="roof" value="roof_mat">roof_mat<br>
 	  	
 	  	<h3>housetype</h3>
-			<input type="checkbox" name="housetype" value="id">id<br>
 	  		<input type="checkbox" name="housetype" value="housetype">housetype<br>
 	  	
 	  	<h3>wall</h3>
-			<input type="checkbox" name="wall" value="id">id<br>
 	  		<input type="checkbox" name="wall" value="wall_mat">wall_mat<br>
 	  			
 	  	<h3>location</h3>
-			<input type="checkbox" name="location" value="id">id<br>
 	  		<input type="checkbox" name="location" value="mun">mun<br>
 	  		<input type="checkbox" name="location" value="zone">zone<br>
 	  		<input type="checkbox" name="location" value="brgy">brgy<br>

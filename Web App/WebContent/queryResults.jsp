@@ -17,7 +17,9 @@
 <link rel="stylesheet" href="<c:url value="mco2.css" />" />
 </head>
 <body>
-<h5><%= session.getAttribute("query") %></h1>
+<div class = "container">
+<h5>Query: </h5>
+<h5><%= session.getAttribute("query") %></h5></div>
 
 <%
 	ArrayList<String> aggregates = (ArrayList<String>) session.getAttribute("aggregates");
