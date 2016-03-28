@@ -5,18 +5,20 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+
+<link rel="stylesheet" href="<c:url value="mco2.css" />" />
 </head>
 <body>
-jsp:include page="header.jsp"/>
+<jsp:include page="header.jsp"/>
 	<div class = "container">
 	<form action="SelectCols" method="post">
 	  
 			
 	  	
 	  	<h2>Household</h2>
-			<input type="checkbox" name="aggregates" value="household_id" checked>Count(*)
+			<input type="checkbox" name="aggregates" value="household_id" checked>Count
 			<select name = "household_id">
-				<option value = "f.id">No Aggregate Function</option>
+				<option value = "">No Aggregate Function</option>
 				<option value = "COUNT(f.id)">Count</option>
 			</select>
 	  		<br>

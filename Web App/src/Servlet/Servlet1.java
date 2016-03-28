@@ -271,7 +271,11 @@ public class Servlet1 extends HttpServlet {
 				{
 					for(int i = 0; i < checkboxValues.length; i++)
 					{
-						aggregates.add(request.getParameter(checkboxValues[i]));
+						if(request.getParameter(checkboxValues[i]).length() > 0)
+						{
+							aggregates.add(request.getParameter(checkboxValues[i]));
+							
+						}
 						String[] temp = checkboxValues[i].split("_");
 						factTable = temp[0];
 						

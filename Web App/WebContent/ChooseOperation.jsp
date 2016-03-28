@@ -6,7 +6,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Choose Operation</title>
-<link rel="stylesheet" href="<c:url value="mco2.css" />" />
 </head>
 <body>
 	<jsp:include page="header.jsp"/>

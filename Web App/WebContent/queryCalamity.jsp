@@ -12,9 +12,9 @@
 	<form action="SelectCols" method="post">
 	  
 	  	<h2>Calamity</h2>
-			<input type="checkbox" name="aggregates" value="calamity_id" checked>Count(*)
+			<input type="checkbox" name="aggregates" value="calamity_id" checked>Count
 			<select name = "calamity_id">
-				<option value = "f.id">No Aggregate Function</option>
+				<option value = "">No Aggregate Function</option>
 				<option value = "COUNT(f.id)">Count</option>
 			</select>
 	  		<br>
@@ -25,7 +25,6 @@
 				<option value = "SUM(f.freq_year)">Sum</option>
 				<option value = "MIN(f.freq_year)">Min</option>
 				<option value = "MAX(f.freq_year)">Max</option>
-				<option value = "COUNT(f.freq_year)">Count</option>
 			</select>
 	  		<br>
 	  	

@@ -28,7 +28,7 @@ public class QueryBuilder
 	
 	public void addAggregate(String aggregate)
 	{
-		aggregates.add(aggregate);
+			aggregates.add(aggregate);
 	}
 	
 	public void addDimensionFact(String dimensionFact)

@@ -12,9 +12,9 @@
 	<form action="SelectCols" method="post">
 	  
 			<h2>Aquani</h2>
-			<input type="checkbox" name="aquani" value="COUNT(*)" checked>Count(*)
+			<input type="checkbox" name="aquani" value="COUNT(*)" checked>Count
 			<select name = "aquani_id">
-				<option value = "f.id">No Aggregate Function</option>
+				<option value = "">No Aggregate Function</option>
 				<option value = "COUNT(f.id)">Count</option>
 			</select>
 	  		<br>
@@ -25,7 +25,6 @@
 				<option value = "SUM(f.line)">Sum</option>
 				<option value = "MIN(f.line)">Min</option>
 				<option value = "MAX(f.line)">Max</option>
-				<option value = "COUNT(f.line)">Count</option>
 			</select>
 	  		<br>
 	  		<input type="checkbox" name="aggregates" value="aquani_volume">volume
@@ -35,7 +34,6 @@
 				<option value = "SUM(f.volume)">Sum</option>
 				<option value = "MIN(f.volume)">Min</option>
 				<option value = "MAX(f.volume)">Max</option>
-				<option value = "COUNT(f.volume)">Count</option>
 			</select>
 	  		<br>
 	  
