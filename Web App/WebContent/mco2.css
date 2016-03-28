@@ -65,25 +65,3 @@ tr:nth-child(even) {
 tr:nth-child(odd) {
 	background-color:#18EE8D;
 }
-
-a.button {
-    -webkit-appearance: button;
-    -moz-appearance: button;
-    appearance: button;
-
-    text-decoration: none;
-    color: initial;
-}
-
-#nav{
-	list-style: none;
-	margin-top: 30px; /*for the space of the buttons from the top */
-}
-#nav li{
-	float:left;
-	margin-left: 30px; 
-	background-color: #7fff7f;
-	padding: 6px 20px 6px 20px;
-	border: 1px solid silver;
-	border-radius: 5px; /*curves of the links*/
-}

@@ -331,16 +331,13 @@ public class Servlet1 extends HttpServlet {
 			for(int i = 0; i < strings.length; i++)
 			{
 				aggregates.add(strings[i]);
-				if(!strings[i].contains("AVG") && 
-				   !strings[i].contains("MIN") && 
-				   !strings[i].contains("MAX") && 
-				   !strings[i].contains("SUM") && 
-				   !strings[i].contains("COUNT"))
+				if(strings[i].contains("AVG(") || 
+				   strings[i].contains("MIN(") || 
+				   strings[i].contains("MAX(") || 
+				   strings[i].contains("SUM(") || 
+				   strings[i].contains("COUNT("))
 				{
-					System.out.println(strings[i]);
-					System.out.println("OK");
 					groupbys.add(strings[i]);
-					
 				}
 			}
 		}
@@ -354,7 +351,7 @@ public class Servlet1 extends HttpServlet {
 				q.addAggregate(s);
 			}
 			
-			for (String s: groupbys)
+			for (String s: aggregates)
 			{
 				q.addGroupBy(s);
 			}
@@ -375,10 +372,6 @@ public class Servlet1 extends HttpServlet {
 					{
 						q.addSelection(temp[0]+ "." + temp[1], false);
 					}
-					if(!dimensions.contains(temp[0]))
-					{
-						q.addDimension(temp[0]);
-					}
 				}
 			}
 			
@@ -391,21 +384,19 @@ public class Servlet1 extends HttpServlet {
 			PreparedStatement ps;
 			try {
 				ps = c.prepareStatement(s);
-			if(slicendice != null)
+			
+			for(int i = 0; i < slicendice.length; i++)
 			{
-				for(int i = 0; i < slicendice.length; i++)
-				{
-					temp = slicendice[i].split("\\.");
-					if(temp.length == 3)
-						ps.setString(i+1, temp[2]);
-				}
+				temp = slicendice[i].split("\\.");
+				if(temp.length == 3)
+					ps.setString(i+1, temp[2]);
 			}
+			
 			ResultSet rs;
 			
-			rs = ps.executeQuery();
-			request.getSession().setAttribute("ResultSet", rs);
-			request.getSession().setAttribute("aggregates", aggregates);
-			
+				rs = ps.executeQuery();
+				request.getSession().setAttribute("ResultSet", rs);
+				request.getSession().setAttribute("aggregates", aggregates);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
