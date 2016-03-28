@@ -12,10 +12,10 @@
 	<jsp:include page="header.jsp"/>
 	<div class="container">
 	<h1>Query Operation</h1><br>
-	<h1><%= session.getAttribute("factTable") + " Table" %></h1><br>
+	<h1><%= session.getAttribute("factTable") + " Table" %></h1>
 	<form action = "SelectOperation" method = "POST">
 	
-	<h2>Roll-Up/Drill Down</h2><br>
+	<h2>Roll-Up/Drill Down</h2>
 	<%
 		ArrayList<String> aggregates = (ArrayList<String>)session.getAttribute("aggregates");
 		for(int i = 0; i < aggregates.size(); i++)
@@ -23,7 +23,7 @@
 	%>
 	<input type="checkbox" name="checkedBoxes" value= <%= aggregates.get(i)%> checked><%=aggregates.get(i)%><br>
 	<% } %>
-	<h2>Slice and Dice</h2><br>
+	<h2>Slice and Dice</h2>
 	<%
 			switch((String)session.getAttribute("factTable"))
 			{
@@ -102,9 +102,12 @@
 		%>
 	
 		<br>
+		<a href="index.jsp" class = "button">Back</a>
 		<input type="submit" value="Apply">
 	
 	</form>
+	
+		
 	</div>
 	
 	<jsp:include page="queryResults.jsp"/>
